@@ -1200,7 +1200,7 @@
    "pt-BR": "Busca",
    "ru": "Получает",
    "id": "Mengambil",
-   "vi": "Lượt tải"
+   "vi": "Tải về"
   },
   "For a more natural voice, download a Premium voice: System Settings → Accessibility → Spoken Content → System Voice → Manage Voices. In English: Ava for a woman, Jamie for a man (British).": {
    "zh-Hans": "想要更自然的声音，请下载 Premium 语音：系统设置 → 辅助功能 → 朗读内容 → 系统语音 → 管理语音。英语：女声选 Ava，男声选 Jamie（英式）。",
@@ -1740,7 +1740,7 @@
    "pt-BR": "Lista",
    "ru": "Перечисляет",
    "id": "Daftar",
-   "vi": "Danh sách"
+   "vi": "Liệt kê"
   },
   "Loading models…": {
    "zh-Hans": "正在加载模型…",
@@ -2124,7 +2124,7 @@
    "pt-BR": "Nenhuma chamada agendada",
    "ru": "Нет звонков",
    "id": "Tidak ada panggilan terjadwal",
-   "vi": "Không có cuộc gọi nào được lên lịch"
+   "vi": "Chưa có lịch hẹn nào"
   },
   "No changes": {
    "zh-Hans": "没有变更",
@@ -3252,7 +3252,7 @@
    "pt-BR": "Agenda",
    "ru": "Расписание",
    "id": "Jadwal",
-   "vi": "Lịch"
+   "vi": "Lịch hẹn"
   },
   "Searches": {
    "zh-Hans": "搜索",

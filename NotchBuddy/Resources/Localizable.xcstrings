@@ -5871,7 +5871,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Không có cuộc gọi nào được lên lịch"
+            "value": "Chưa có lịch hẹn nào"
           }
         },
         "zh-Hans": {
@@ -9442,7 +9442,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lịch"
+            "value": "Lịch hẹn"
           }
         },
         "zh-Hans": {
@@ -23718,7 +23718,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lượt tải"
+            "value": "Tải về"
           }
         },
         "zh-Hans": {
@@ -23788,7 +23788,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Danh sách"
+            "value": "Liệt kê"
           }
         },
         "zh-Hans": {

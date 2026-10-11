@@ -1391,7 +1391,7 @@
    "pt-BR": "Próxima aba ou anterior",
    "ru": "Следующая или предыдущая вкладка",
    "id": "Tab berikutnya atau sebelumnya",
-   "vi": "Pill kế hoặc trước"
+   "vi": "Pill tiếp hoặc trước"
   },
   "Next pill": {
    "zh-Hans": "下一个标签",
@@ -1403,7 +1403,7 @@
    "pt-BR": "Próxima aba",
    "ru": "Следующая вкладка",
    "id": "Tab berikutnya",
-   "vi": "Pill kế"
+   "vi": "Pill tiếp"
   },
   "No API key — add it in Settings.": {
    "zh-Hans": "没有 API 密钥 — 请在设置中添加。",
@@ -1559,7 +1559,7 @@
    "pt-BR": "Nenhum",
    "ru": "Нет",
    "id": "Tidak ada",
-   "vi": "Không"
+   "vi": "Không có"
   },
   "Not a valid address: {address}": {
    "zh-Hans": "不是有效的地址：{address}",
@@ -2951,7 +2951,7 @@
    "pt-BR": "Desktop: {keys}",
    "ru": "Рабочий стол: {keys}",
    "id": "Desktop: {keys}",
-   "vi": "Màn hình: {keys}"
+   "vi": "Desktop: {keys}"
   },
   "Not set by your desktop": {
    "zh-Hans": "桌面未设置",
@@ -3500,7 +3500,7 @@
    "pt-BR": "{n} disponíveis",
    "ru": "доступно: {n}",
    "id": "{n} tersedia",
-   "vi": "có {n}"
+   "vi": "{n} khả dụng"
   },
   "{n}d": {
    "zh-Hans": "{n} 天",
