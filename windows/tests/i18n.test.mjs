@@ -155,6 +155,33 @@ test("strings.json is what the generator makes of the Mac's catalog", () => {
   assert.deepEqual(generate(catalog), MAC);
 });
 
+test("CFBundleLocalizations declares every language in the catalog", () => {
+  // The Mac app advertises its languages through CFBundleLocalizations; a catalog
+  // language missing there is a localization that will not be offered. The plist
+  // and both XcodeGen targets must agree with the catalog.
+  const catalog = JSON.parse(readFileSync(join(WINDOWS, "../NotchBuddy/Resources/Localizable.xcstrings"), "utf8"));
+  const langs = new Set();
+  for (const entry of Object.values(catalog.strings ?? {})) {
+    for (const lang of Object.keys(entry.localizations ?? {})) langs.add(lang);
+  }
+  const read = (rel) => readFileSync(join(WINDOWS, "..", rel), "utf8");
+
+  const yml = read("NotchBuddy/project.yml");
+  const ymlArrays = [...yml.matchAll(/CFBundleLocalizations:\n((?:[ \t]+-[^\n]*\n)+)/g)].map(
+    (m) => new Set([...m[1].matchAll(/-[ \t]+(\S+)/g)].map((x) => x[1])),
+  );
+  assert.ok(ymlArrays.length >= 1, "project.yml has no CFBundleLocalizations");
+  for (const set of ymlArrays) {
+    for (const lang of langs) assert.ok(set.has(lang), `project.yml CFBundleLocalizations is missing ${lang}`);
+  }
+
+  const plist = read("NotchBuddy/Resources/Info.plist");
+  const block = plist.match(/CFBundleLocalizations[\s\S]*?<array>([\s\S]*?)<\/array>/);
+  assert.ok(block, "Info.plist has no CFBundleLocalizations");
+  const plistSet = new Set([...block[1].matchAll(/<string>([^<]+)<\/string>/g)].map((x) => x[1]));
+  for (const lang of langs) assert.ok(plistSet.has(lang), `Info.plist CFBundleLocalizations is missing ${lang}`);
+});
+
 test("the generator turns format specifiers into placeholders", () => {
   assert.equal(convertFormat("Chat with %@", ["name"]), "Chat with {name}");
   assert.equal(convertFormat("in %lld h %lld", ["h", "m"]), "in {h} h {m}");

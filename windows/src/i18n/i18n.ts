@@ -1,4 +1,4 @@
-// Interface language — the same languages as the Mac (0.2.0).
+// Interface language — the same languages as the Mac.
 //
 // Strings are looked up by their English text, like the Mac's catalog:
 // `t("Allow")`, `t("Uploading {name}", { name })`. Two tables, both keyed by
