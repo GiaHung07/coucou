@@ -1,0 +1,5 @@
+$ git rev-parse --short origin/main
+e1b2cfd
+
+$ git apply --check /home/admin/Linux/scratch/coucou-i18n-vi.patch
+OK — patch áp được lên main mới nhất (e1b2cfd)
