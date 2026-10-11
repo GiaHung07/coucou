@@ -6,7 +6,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 python3 - <<'PY'
-import json, re, sys
+import glob, json, re, sys
 
 catalog = json.load(open("NotchBuddy/Resources/Localizable.xcstrings", encoding="utf-8"))
 langs = set()
@@ -27,14 +27,23 @@ for declared in arrays:
     if missing:
         sys.exit(f"project.yml CFBundleLocalizations is missing: {sorted(missing)}")
 
-plist = open("NotchBuddy/Resources/Info.plist", encoding="utf-8").read()
-block = re.search(r"CFBundleLocalizations[\s\S]*?<array>([\s\S]*?)</array>", plist)
-if not block:
-    sys.exit("Info.plist has no CFBundleLocalizations")
-declared = set(re.findall(r"<string>([^<]+)</string>", block.group(1)))
-missing = langs - declared
-if missing:
-    sys.exit(f"Info.plist CFBundleLocalizations is missing: {sorted(missing)}")
+# Every target's plist that advertises localizations must list them all —
+# Info.plist (Coucou), InfoAppStore.plist (CoucouAppStore), and any future one.
+checked = 0
+for plist in sorted(glob.glob("NotchBuddy/Resources/*.plist")):
+    text = open(plist, encoding="utf-8").read()
+    if "CFBundleLocalizations" not in text:
+        continue
+    block = re.search(r"CFBundleLocalizations[\s\S]*?<array>([\s\S]*?)</array>", text)
+    if not block:
+        sys.exit(f"{plist} has CFBundleLocalizations without an array")
+    declared = set(re.findall(r"<string>([^<]+)</string>", block.group(1)))
+    missing = langs - declared
+    if missing:
+        sys.exit(f"{plist} CFBundleLocalizations is missing: {sorted(missing)}")
+    checked += 1
+if checked == 0:
+    sys.exit("no plist declares CFBundleLocalizations")
 
-print(f"CFBundleLocalizations declares all {len(langs)} catalog languages: {sorted(langs)}")
+print(f"CFBundleLocalizations declares all {len(langs)} catalog languages in {checked} plist(s): {sorted(langs)}")
 PY

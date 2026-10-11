@@ -175,11 +175,20 @@ test("CFBundleLocalizations declares every language in the catalog", () => {
     for (const lang of langs) assert.ok(set.has(lang), `project.yml CFBundleLocalizations is missing ${lang}`);
   }
 
-  const plist = read("NotchBuddy/Resources/Info.plist");
-  const block = plist.match(/CFBundleLocalizations[\s\S]*?<array>([\s\S]*?)<\/array>/);
-  assert.ok(block, "Info.plist has no CFBundleLocalizations");
-  const plistSet = new Set([...block[1].matchAll(/<string>([^<]+)<\/string>/g)].map((x) => x[1]));
-  for (const lang of langs) assert.ok(plistSet.has(lang), `Info.plist CFBundleLocalizations is missing ${lang}`);
+  // Every target's plist that advertises localizations: Info.plist (Coucou),
+  // InfoAppStore.plist (CoucouAppStore), and any future one.
+  const resDir = join(WINDOWS, "..", "NotchBuddy/Resources");
+  let checked = 0;
+  for (const name of readdirSync(resDir).filter((f) => f.endsWith(".plist"))) {
+    const text = readFileSync(join(resDir, name), "utf8");
+    if (!text.includes("CFBundleLocalizations")) continue;
+    const block = text.match(/CFBundleLocalizations[\s\S]*?<array>([\s\S]*?)<\/array>/);
+    assert.ok(block, `${name} has CFBundleLocalizations without an array`);
+    const set = new Set([...block[1].matchAll(/<string>([^<]+)<\/string>/g)].map((x) => x[1]));
+    for (const lang of langs) assert.ok(set.has(lang), `${name} CFBundleLocalizations is missing ${lang}`);
+    checked += 1;
+  }
+  assert.ok(checked >= 1, "no plist declares CFBundleLocalizations");
 });
 
 test("the generator turns format specifiers into placeholders", () => {
